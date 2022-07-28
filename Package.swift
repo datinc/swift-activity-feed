@@ -18,6 +18,7 @@ let package = Package(
         .package(url: "https://github.com/kean/Nuke", .upToNextMajor(from: "8.1.0")),
         .package(url: "https://github.com/AliSoftware/Reusable.git", .upToNextMajor(from: "4.1.0")),
         .package(url: "https://github.com/SnapKit/SnapKit", .upToNextMajor(from: "5.0.0")),
+        .package(url: "https://github.com/sendyhalim/Swime", .upToNextMajor(from: "3.1.0")), // Needed to compile
     ],
     targets: [
         .target(

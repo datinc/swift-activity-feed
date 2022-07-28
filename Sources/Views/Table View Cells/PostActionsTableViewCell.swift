@@ -15,7 +15,8 @@ open class PostActionsTableViewCell: UITableViewCell, NibReusable {
     @IBOutlet public weak var replyButton: UIButton!
     @IBOutlet public weak var repostButton: RepostButton!
     @IBOutlet public weak var likeButton: LikeButton!
-    
+    @IBOutlet weak var linkButton: UIButton!
+
     open override func awakeFromNib() {
         super.awakeFromNib()
         reset()
@@ -36,12 +37,15 @@ open class PostActionsTableViewCell: UITableViewCell, NibReusable {
         replyButton.removeTap()
         repostButton.removeTap()
         likeButton.removeTap()
+        linkButton.removeTap()
         replyButton.isEnabled = true
         repostButton.isEnabled = true
         likeButton.isEnabled = true
+        linkButton.isEnabled = true
         replyButton.isHidden = true
         repostButton.isHidden = true
         likeButton.isHidden = true
+        linkButton.isHidden = true
     }
 }
 
@@ -85,6 +89,14 @@ extension PostActionsTableViewCell {
         
         likeButton.isSelected = isLiked
         likeButton.isHidden = false
+    }
+
+    public func updateLink(action: UIControl.Action? = nil) {
+        if let action = action {
+            linkButton.addTap(action)
+        }
+        linkButton.isUserInteractionEnabled = true
+        linkButton.isHidden = false
     }
 }
 

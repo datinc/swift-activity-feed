@@ -8,20 +8,30 @@
 
 import UIKit
 import GetStream
+import Reusable
 
 // MARK: - Setup Post Table View
 
 extension UITableView {
+
+    final func registerSPM<T: UITableViewCell>(cellType: T.Type)
+    where T: Reusable {
+
+        let nib = UINib(nibName: String(describing: T.self), bundle: Bundle.module)
+
+        self.register(nib, forCellReuseIdentifier: cellType.reuseIdentifier)
+    }
+
     /// The registration of all table view cells from Activity Feed Components.
     public func registerCells() {
-        register(cellType: PostHeaderTableViewCell.self)
-        register(cellType: PostActionsTableViewCell.self)
-        register(cellType: PostAttachmentImagesTableViewCell.self)
-        register(cellType: OpenGraphTableViewCell.self)
-        register(cellType: SeparatorTableViewCell.self)
-        register(cellType: ActionUsersTableViewCell.self)
-        register(cellType: CommentTableViewCell.self)
-        register(cellType: PaginationTableViewCell.self)
+        registerSPM(cellType: PostHeaderTableViewCell.self)
+        registerSPM(cellType: PostActionsTableViewCell.self)
+        registerSPM(cellType: PostAttachmentImagesTableViewCell.self)
+        registerSPM(cellType: OpenGraphTableViewCell.self)
+        registerSPM(cellType: SeparatorTableViewCell.self)
+        registerSPM(cellType: ActionUsersTableViewCell.self)
+        registerSPM(cellType: CommentTableViewCell.self)
+        registerSPM(cellType: PaginationTableViewCell.self)
     }
 }
 

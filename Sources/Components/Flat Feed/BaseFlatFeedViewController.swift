@@ -69,6 +69,10 @@ open class BaseFlatFeedViewController<T: ActivityProtocol>: UIViewController, UI
             tableView.reloadData()
         }
     }
+
+    open func handleActivityLink(_ url: URL) {
+        UIApplication.shared.open(url)
+    }
     
     // MARK: - Table View Data Source
     
@@ -117,6 +121,14 @@ open class BaseFlatFeedViewController<T: ActivityProtocol>: UIViewController, UI
     open func updateActions(in cell: PostActionsTableViewCell, activityPresenter: ActivityPresenter<T>) {
         if activityPresenter.reactionTypes.contains(.comments) {
             cell.updateReply(commentsCount: activityPresenter.originalActivity.commentsCount)
+        }
+
+        if let activity = activityPresenter.activity as? URLRepresentable,
+           let url = activity.url {
+            cell.updateLink()  { [weak self]  control in
+                guard let this = self else { return }
+                this.handleActivityLink(url)
+            }
         }
         
         if activityPresenter.reactionTypes.contains(.likes) {

@@ -271,7 +271,7 @@ public final class TextToolBar: UIView {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.alwaysBounceHorizontal = true
         collectionView.dataSource = self
-        collectionView.register(cellType: AddingImageCollectionViewCell.self)
+        collectionView.registerSPM(cellType: AddingImageCollectionViewCell.self)
         collectionView.snp.makeConstraints { $0.height.equalTo(TextToolBar.imagesCollectionHeight) }
         
         return collectionView

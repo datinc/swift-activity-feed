@@ -14,15 +14,17 @@ public typealias Reaction = GetStream.Reaction<ReactionExtraData, User>
 
 /// An enriched activity with `User` type, `ActivityObject` as object type and `Reaction` as reation type.
 /// It has additional properties: text and attachment. See `AttachmentRepresentable`.
-public final class Activity: EnrichedActivity<User, ActivityObject, Reaction>, TextRepresentable, AttachmentRepresentable {
-    
+public final class Activity: EnrichedActivity<User, ActivityObject, Reaction>, TextRepresentable, AttachmentRepresentable, URLRepresentable {
+
     private enum CodingKeys: String, CodingKey {
         case text
         case attachments
+        case url
     }
     
     public var text: String?
     public var attachment: ActivityAttachment?
+    public var url: URL?
     
     public var original: Activity {
         switch object {
@@ -51,6 +53,7 @@ public final class Activity: EnrichedActivity<User, ActivityObject, Reaction>, T
         let container = try decoder.container(keyedBy: CodingKeys.self)
         text = try container.decodeIfPresent(String.self, forKey: .text)
         attachment = try container.decodeIfPresent(ActivityAttachment.self, forKey: .attachments)
+        url = try container.decodeIfPresent(URL.self, forKey: .url)
         try super.init(from: decoder)
     }
     
@@ -58,6 +61,7 @@ public final class Activity: EnrichedActivity<User, ActivityObject, Reaction>, T
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(text, forKey: .text)
         try container.encodeIfPresent(attachment, forKey: .attachments)
+        try container.encodeIfPresent(url, forKey: .url)
         try super.encode(to: encoder)
     }
 }
