@@ -32,7 +32,6 @@ extension UIImage {
     
     /// An image of an icon from Stream Activity Feed Components.
     public static func stream(named name: String) -> UIImage {
-        let bundle = Bundle(for: FlatFeedPresenter<Activity>.self)
-        return UIImage(named: name, in: bundle, compatibleWith: nil) ?? .init(color: .black)
+        return UIImage(named: name, in: Bundle.module, compatibleWith: nil) ?? .init(color: .black)
     }
 }
